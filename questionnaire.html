@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catch the Falling Leaf – Updated Game with Home Link</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 1rem;
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    display: flex; justify-content: center;
+  }
+  main {
+    max-width: 700px; width: 100%;
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  h2 {
+    color: #1e40af;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  canvas {
+    background: #c1e1c1;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto 15px;
+  }
+  button, a.button-link {
+    background: #1e40af;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    margin: 0 8px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  button:hover, a.button-link:hover {
+    background: #155799;
+  }
+  #scoreDisplay, #missedDisplay {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #276749;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+  <main>
+    <h2>Catch the Falling Leaf 🍂</h2>
+    <canvas id="gameCanvas" width="600" height="350"></canvas>
+    <div>Score: <span id="scoreDisplay">0</span></div>
+    <div>Missed: <span id="missedDisplay">0</span> / 5</div>
+    <div>
+      <button id="startBtn">Start Game</button>
+      <a href="home.html" class="button-link" id="homeBtn">Home</a>
+    </div>
+  </main>
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const missedDisplay = document.getElementById('missedDisplay');
+  const startBtn = document.getElementById('startBtn');
+  const homeBtn = document.getElementById('homeBtn');
+
+  const basketWidth = 100;
+  const basketHeight = 20;
+  let basketX = (canvas.width - basketWidth) / 2;
+  const basketY = canvas.height - basketHeight - 10;
+
+  let rightPressed = false;
+  let leftPressed = false;
+
+  let leaves = [];
+  const leafRadius = 18; // Larger leaves
+  const leafSpeedStart = 1.5; // Slower falling speed
+  let leafSpeed = leafSpeedStart;
+
+  let score = 0;
+  let missed = 0;
+  const maxMissed = 5;
+
+  let gameRunning = false;
+  let animationFrameId;
+  let leafInterval;
+
+  function drawBasket() {
+    ctx.fillStyle = '#2d6a4f';
+    ctx.fillRect(basketX, basketY, basketWidth, basketHeight);
+    ctx.fillStyle = '#1e40af';
+    ctx.fillRect(basketX + 10, basketY - 10, basketWidth - 20, 10);
+  }
+
+  function drawLeaf(leaf) {
+    ctx.beginPath();
+    const gradient = ctx.createRadialGradient(leaf.x, leaf.y, 4, leaf.x, leaf.y, leafRadius);
+    gradient.addColorStop(0, '#fbbf24');
+    gradient.addColorStop(1, '#c2410c');
+    ctx.fillStyle = gradient;
+    ctx.arc(leaf.x, leaf.y, leafRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function createLeaf() {
+    const x = Math.random() * (canvas.width - 2 * leafRadius) + leafRadius;
+    leaves.push({x: x, y: -leafRadius, caught: false});
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBasket();
+
+    leaves.forEach((leaf, idx) => {
+      if (!leaf.caught) {
+        leaf.y += leafSpeed;
+
+        if (
+          leaf.y + leafRadius >= basketY &&
+          leaf.x > basketX &&
+          leaf.x < basketX + basketWidth
+        ) {
+          score++;
+          leaf.caught = true;
+          scoreDisplay.textContent = score;
+          if (score % 5 === 0) {
+            leafSpeed += 0.3;
+          }
+        }
+        else if (leaf.y - leafRadius > canvas.height && !leaf.caught) {
+          missed++;
+          missedDisplay.textContent = missed;
+          leaf.caught = true;
+          if (missed >= maxMissed) {
+            alert('Game Over! You missed 5 leaves.');
+            stopGame();
+            return;
+          }
+        }
+
+        if (leaf.y - leafRadius > canvas.height || leaf.caught) {
+          leaves.splice(idx, 1);
+        } else {
+          drawLeaf(leaf);
+        }
+      }
+    });
+
+    if (rightPressed && basketX < canvas.width - basketWidth) basketX += 6;
+    if (leftPressed && basketX > 0) basketX -= 6;
+
+    if (gameRunning) animationFrameId = requestAnimationFrame(draw);
+  }
+
+  function keyDownHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = true;
+    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = true;
+  }
+
+  function keyUpHandler(e) {
+    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = false;
+    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = false;
+  }
+
+  function startGame() {
+    if (gameRunning) return;
+    gameRunning = true;
+    score = 0;
+    missed = 0;
+    leafSpeed = leafSpeedStart;
+    scoreDisplay.textContent = score;
+    missedDisplay.textContent = missed;
+    leaves = [];
+    basketX = (canvas.width - basketWidth) / 2;
+    leafInterval = setInterval(() => {
+      if (!gameRunning) clearInterval(leafInterval);
+      else createLeaf();
+    }, 900);
+    draw();
+  }
+
+  function stopGame() {
+    gameRunning = false;
+    clearInterval(leafInterval);
+    cancelAnimationFrame(animationFrameId);
+  }
+
+  document.addEventListener('keydown', keyDownHandler);
+  document.addEventListener('keyup', keyUpHandler);
+
+  startBtn.addEventListener('click', startGame);
+</script>
+</body>
+</html>
+
+

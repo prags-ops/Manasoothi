@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manasoothi – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-color: #f0f8ff;
+      --text-color: #1D4044;
+      --primary: #4FD1C5;
+      --primary-dark: #38B2AC;
+      --card-bg: white;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+    body {
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+
+  /* Add your background image below */
+  background: url('image1.jpg') no-repeat center center fixed;
+  
+  background-size: cover;
+}
+    .login-container {
+      background: var(--card-bg);
+      box-shadow: 0 6px 32px var(--shadow-color);
+      border-radius: 18px;
+      padding: 3.5rem 2.4rem 2.7rem 2.4rem;
+      text-align: center;
+      max-width: 400px;
+      width: 98vw;
+      position: relative;
+      z-index: 1;
+    }
+    .logo-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e6fffa;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 28px var(--shadow-color);
+      border: 3px solid var(--primary-dark);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .app-name {
+      font-family: "Noto Sans Devanagari", Arial, sans-serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.7rem;
+    }
+    .main-title {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 1.3rem;
+    }
+    .login-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 32px;
+      font-size: 1.12rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin: 2.1rem 0 1.4rem 0;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 12px var(--shadow-color);
+    }
+    .login-btn:hover {
+      background: var(--primary-dark);
+    }
+    .dark-mode-toggle {
+      position: absolute;
+      top: 36px;
+      right: 36px;
+      background: none;
+      border: none;
+      color: var(--primary-dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+    @media (max-width: 500px) {
+      .login-container {
+        padding: 1.7rem 0.7rem;
+      }
+    }
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(28, 53, 60, 0.74);
+      z-index: 99;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-bg.active { display:flex; }
+    .login-modal {
+      background: var(--card-bg);
+      border-radius: 13px;
+      box-shadow: 0 4px 16px var(--shadow-color);
+      color: var(--text-color);
+      padding: 2.1rem 1.8rem 1.6rem 1.8rem;
+      width: 94vw;
+      max-width: 350px;
+      text-align: center;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      right: 18px; top: 18px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: #999;
+    }
+    .modal-close:hover { color: var(--primary-dark); }
+    .login-form, .signup-form {
+      display: none;
+      text-align: left;
+    }
+    .login-form.active, .signup-form.active { display:block; }
+    .login-form label, .signup-form label {
+      font-size: 0.98rem;
+      margin: 8px 0 6px;
+      display: block;
+    }
+    .login-form input, .signup-form input {
+      background: #f3fffe;
+      border: 1.4px solid var(--primary-dark);
+      border-radius: 6px;
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .login-form button, .signup-form button {
+      background: var(--primary);
+      border: none;
+      color: var(--bg-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.75rem 2rem;
+      border-radius: 24px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 10px var(--shadow-color);
+      transition: background-color 0.18s;
+    }
+    .login-form button:hover, .signup-form button:hover {
+      background: var(--primary-dark);
+    }
+    .form-footer {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+    }
+    .form-footer a {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--primary-dark);
+    }
+    .login-error {
+      color: red;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  <div class="login-container">
+    <img src="image2.jpg" alt="Manasoothi logo" class="logo-img" />
+    <div class="app-name"><span class="devanagari">मनसूथि</span> Manasoothi</div>
+    <div class="main-title">Your holistic companion for good mental health and support.</div>
+    <button class="login-btn" id="mainLoginBtn">Login to Continue</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-bg" id="loginModalBg">
+    <div class="login-modal" id="loginModal">
+      <div class="modal-close" id="modalClose">&times;</div>
+
+      <!-- User Login Form -->
+      <form id="userLoginForm" class="login-form">
+        <h3>User Login</h3>
+        <label for="userEmail">Email</label>
+        <input type="email" id="userEmail" required />
+        <label for="userPassword">Password</label>
+        <input type="password" id="userPassword" required />
+        <button type="submit">Login</button>
+        <div id="userLoginError" class="login-error"></div>
+        <div class="form-footer">
+          Don't have an account? <a id="showSignupLink">Sign Up</a>
+          <br/>
+          Or <a id="switchToAdminLogin">Admin Login</a>
+        </div>
+      </form>
+
+      <!-- Admin Login Form -->
+      <form id="adminLoginForm" class="login-form">
+        <h3>Admin Login</h3>
+        <label for="adminEmail">Email</label>
+        <input type="email" id="adminEmail" required />
+        <label for="adminPassword">Password</label>
+        <input type="password" id="adminPassword" required />
+        <button type="submit">Login</button>
+        <div id="adminLoginError" class="login-error"></div>
+        <div class="form-footer">
+          Back to <a id="switchToUserLogin">User Login</a>
+        </div>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="signup-form">
+        <h3>User Sign Up</h3>
+        <label for="signupName">Name</label>
+        <input type="text" id="signupName" required />
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" required />
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" required />
+        <button type="submit">Register</button>
+        <div id="signupError" class="login-error"></div>
+        <div class="form-footer">
+          Already have an account? <a id="backToLoginLink">Login here</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    // Dark mode toggle
+    document.getElementById("darkModeToggle").onclick = function () {
+      document.body.classList.toggle("dark-mode");
+    };
+
+    const loginModalBg = document.getElementById("loginModalBg");
+    const mainLoginBtn = document.getElementById("mainLoginBtn");
+    const modalClose = document.getElementById("modalClose");
+
+    const userLoginForm = document.getElementById("userLoginForm");
+    const adminLoginForm = document.getElementById("adminLoginForm");
+    const signupForm = document.getElementById("signupForm");
+    const userLoginError = document.getElementById("userLoginError");
+    const adminLoginError = document.getElementById("adminLoginError");
+    const signupError = document.getElementById("signupError");
+
+    mainLoginBtn.onclick = () => {
+      loginModalBg.classList.add("active");
+      showUserLogin();
+      clearErrors();
+    };
+
+    modalClose.onclick = () => {
+      loginModalBg.classList.remove("active");
+    };
+
+    loginModalBg.onclick = (e) => {
+      if (e.target === loginModalBg) loginModalBg.classList.remove("active");
+    };
+
+    // Show forms helpers
+    function showUserLogin() {
+      userLoginForm.classList.add("active");
+      adminLoginForm.classList.remove("active");
+      signupForm.classList.remove("active");
+      clearErrors();
+    }
+    function showAdminLogin() {
+      adminLoginForm.classList.add("active");
+      userLoginForm.classList.remove("active");
+      signupForm.classList.remove("active");
+      clearErrors();
+    }
+    function showSignup() {
+      signupForm.classList.add("active");
+      userLoginForm.classList.remove("active");
+      adminLoginForm.classList.remove("active");
+      clearErrors();
+    }
+    function clearErrors() {
+      userLoginError.textContent = "";
+      adminLoginError.textContent = "";
+      signupError.textContent = "";
+    }
+
+    // Switch links handlers
+    document.getElementById("showSignupLink").onclick = showSignup;
+    document.getElementById("backToLoginLink").onclick = showUserLogin;
+    document.getElementById("switchToAdminLogin").onclick = showAdminLogin;
+    document.getElementById("switchToUserLogin").onclick = showUserLogin;
+
+    // Simulated login
+    userLoginForm.onsubmit = function (e) {
+      e.preventDefault();
+      let email = document.getElementById("userEmail").value.trim();
+      let pass = document.getElementById("userPassword").value;
+      if (!email || !pass) {
+        userLoginError.textContent = "Please enter credentials.";
+        return;
+      }
+      alert("User login successful (demo mode). Redirecting...");
+      loginModalBg.classList.remove("active");
+      window.location.href = "home.html";
+    };
+
+    adminLoginForm.onsubmit = function (e) {
+      e.preventDefault();
+      let email = document.getElementById("adminEmail").value.trim();
+      let pass = document.getElementById("adminPassword").value;
+      if (!email || !pass) {
+        adminLoginError.textContent = "Please enter credentials.";
+        return;
+      }
+      alert("Admin login successful (demo mode). Redirecting...");
+      loginModalBg.classList.remove("active");
+      window.location.href = "admin.html";
+    };
+
+    // Simulated signup
+    signupForm.onsubmit = function (e) {
+      e.preventDefault();
+      let name = document.getElementById("signupName").value.trim();
+      let email = document.getElementById("signupEmail").value.trim();
+      let pass = document.getElementById("signupPassword").value;
+      if (!name || !email || !pass) {
+        signupError.textContent = "All fields are required.";
+        return;
+      }
+      alert("Registration successful (demo mode). Please login.");
+      showUserLogin();
+    };
+  </script>
+</body>
+</html>
+

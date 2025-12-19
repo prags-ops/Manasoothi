@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manasoothi - Mental Health Resources & Self-Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #f0f8ff;
+      --text-color: #1D4044;
+      --primary: #4FD1C5;
+      --primary-dark: #38B2AC;
+      --card-bg: white;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode {
+      --bg-color: #1D4044;
+      --text-color: #f0f8ff;
+      --card-bg: #2D4E52;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 20px 40px 20px;
+      min-height: 100vh;
+      position: relative;
+      padding-top: 80px;
+    
+    background: url('imagef.jpg') no-repeat center center fixed;
+  
+  background-size: cover;
+  }
+    .devanagari {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--card-bg);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 101;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dark-mode-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+
+    .dark-mode-toggle:hover {
+      color: var(--primary-dark);
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+
+    .menu-btn:hover {
+      color: var(--primary-dark);
+    }
+
+    .contact-link {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+      color: var(--primary-dark);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 280px;
+      height: 100vh;
+      background: var(--card-bg);
+      box-shadow: 2px 0 10px var(--shadow-color);
+      z-index: 100;
+      transition: all 0.3s ease;
+      padding-top: 80px;
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+      color: var(--primary-dark);
+    }
+
+    .nav-links {
+      padding: 20px;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 13px 18px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: var(--text-color);
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .nav-links .submenu {
+      margin-left: 15px;
+      margin-bottom: 15px;
+      display: none;
+      flex-direction: column;
+    }
+
+    .nav-links .submenu a {
+      padding: 7px 18px;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
+    }
+
+    .nav-links .submenu a:hover {
+      background: var(--primary-dark);
+    }
+
+    .nav-links .has-submenu > a::after {
+      content: '▼';
+      float: right;
+      font-size: 0.7rem;
+      margin-top: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links .has-submenu.open > a::after {
+      transform: rotate(-180deg);
+      margin-top: 2px;
+    }
+
+    .nav-links .has-submenu.open>.submenu {
+      display: flex;
+    }
+
+    .contact-info {
+      padding: 20px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      color: var(--primary-dark);
+    }
+
+    .contact-info p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-info a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      transition: text-decoration 0.3s;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    main.main-content {
+      padding: 10px 0;
+    }
+
+    main h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--primary-dark);
+    }
+
+    /* Mental health practices section */
+    section.practices {
+      background: var(--card-bg);
+      box-shadow: 0 4px 16px var(--shadow-color);
+      border-radius: 14px;
+      padding: 22px 30px;
+      margin-bottom: 40px;
+    }
+
+    section.practices p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    section.practices ul {
+      list-style-type: disc;
+      padding-left: 25px;
+      color: var(--text-color);
+    }
+
+    /* Self assessment section */
+    section.self-assessment {
+      background: var(--card-bg);
+      box-shadow: 0 4px 16px var(--shadow-color);
+      border-radius: 14px;
+      padding: 22px 30px;
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    section.self-assessment h2 {
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+      text-align: center;
+    }
+
+    #assessmentContainer {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    #progressBar {
+      width: 100%;
+      height: 8px;
+      background: #e0f2f1;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+
+    #progressFill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 6px;
+      transition: width 0.35s ease-in-out;
+    }
+
+    .question {
+      display: none;
+      text-align: center;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .question h3 {
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .option-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 90px;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+
+    .option-btn:hover,
+    .option-btn:focus {
+      background: var(--primary-dark);
+      outline: none;
+    }
+
+    button#retakeBtn {
+      margin-top: 30px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px var(--shadow-color);
+      transition: background-color 0.3s ease;
+      display: none;
+      width: 100%;
+      max-width: 450px;
+    }
+
+    button#retakeBtn:hover {
+      background: var(--primary-dark);
+    }
+
+    #resultMessage {
+      margin-top: 25px;
+      color: var(--primary-dark);
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+      min-height: 2em;
+    }
+
+    #tipsSection {
+      margin-top: 30px;
+      background: #dff7f5;
+      border-left: 6px solid var(--primary);
+      border-radius: 10px;
+      padding: 20px 30px;
+      display: none;
+    }
+
+    #tipsSection h3 {
+      margin-bottom: 14px;
+      color: var(--primary-dark);
+    }
+
+    #tipsSection ul {
+      list-style-type: inside disc;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    .tips-link {
+      color: var(--primary-dark);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0 10px 40px 10px;
+      }
+
+      .nav-links {
+        padding: 15px 10px;
+      }
+
+      main {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">
+      <button class="menu-btn" aria-label="Open menu">☰</button>
+      <div><span class="devanagari">मनसूथि</span> Manasoothi</div>
+    </div>
+    <div class="nav-controls">
+      <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="#" class="contact-link">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar Menu -->
+  <nav class="sidebar" id="sidebar" aria-label="Main navigation menu">
+    <button class="close-btn" aria-label="Close menu">×</button>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+
+      <div class="has-submenu" id="mentalHealthMenu">
+        <a tabindex="0" role="button" aria-expanded="false">What Is?</a>
+        <div class="submenu" aria-expanded="false" aria-hidden="true">
+          <a href="anger.html">Anger</a>
+          <a href="anxiety.html">Anxiety</a>
+          <a href="depression.html">Depression</a>
+          <a href="fear.html">Fear</a>
+          <a href="loneliness.html">Loneliness</a>
+        </div>
+      </div>
+
+      <a href="resources.html" class="active">Resources</a>
+      <a href="credits.html">Credits</a>
+      <a href="questionnaire.html">Questionnaire</a>
+      <a href="#">Logout</a>
+    </div>
+    <div class="contact-info">
+      <p>📞 <a href="tel:8296006453">+91 8296006453</a></p>
+      <p>✉ <a href="mailto:rakshithvrakshithv9@gmail.com">rakshithvrakshithv9@gmail.com</a></p>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <h1>Mental Health Resources & Self-Assessment</h1>
+
+    <section class="practices" aria-label="Practices to maintain good mental health">
+      <h2>Practices to Maintain Good Mental Health</h2>
+      <p>A good mental health state allows you to manage stress and enjoy life. Consider integrating these habits:</p>
+      <ul>
+        <li>Practice mindfulness or deep breathing daily.</li>
+        <li>Stay physically active with regular exercise.</li>
+        <li>Maintain social connections and strong relationships.</li>
+        <li>Prioritize restful sleep and balanced nutrition.</li>
+        <li>Set realistic goals and allow time for self-care.</li>
+        <li>Limit exposure to overwhelming or negative information.</li>
+      </ul>
+    </section>
+
+    <section class="self-assessment" aria-label="Interactive self-assessment for mental health">
+      <h2>Take the Self-Assessment Test</h2>
+      <div id="assessmentContainer">
+        <div id="progressBar" aria-label="Question progress" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+          <div id="progressFill"></div>
+        </div>
+        <form id="assessmentForm" novalidate></form>
+        <div id="resultMessage" role="alert" aria-live="polite"></div>
+        <div id="tipsSection" role="region" aria-live="polite" aria-atomic="true" tabindex="0" style="display:none;">
+          <h3>Tips for Managing <span id="issueTitle"></span></h3>
+          <ul id="tipsList"></ul>
+          <a href="#" id="showMoreTips" class="tips-link" tabindex="0">Learn more tips</a>
+        </div>
+        <button id="retakeBtn" aria-label="Retake self assessment test">Retake Test</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Sidebar toggling
+    const menuBtn = document.querySelector(".menu-btn");
+    const sidebar = document.getElementById("sidebar");
+    const closeBtn = document.querySelector(".close-btn");
+    const mentalHealthMenu = document.getElementById("mentalHealthMenu");
+
+    menuBtn.onclick = () => sidebar.classList.add("open");
+    closeBtn.onclick = () => sidebar.classList.remove("open");
+    window.onclick = e => {
+      if (e.target === sidebar) sidebar.classList.remove("open");
+    };
+
+    // Dark mode toggle
+    document.getElementById("darkModeToggle").onclick = function () {
+      document.body.classList.toggle('dark-mode');
+    };
+
+    // Sidebar submenu toggle
+    mentalHealthMenu.querySelector('a').onclick = function () {
+      mentalHealthMenu.classList.toggle('open');
+      const submenu = mentalHealthMenu.querySelector('.submenu');
+      const expanded = mentalHealthMenu.classList.contains('open');
+      submenu.setAttribute('aria-expanded', expanded);
+      submenu.setAttribute('aria-hidden', !expanded);
+    };
+
+    // Self-assessment implementation
+    const questions = [
+      {
+        id: "anger",
+        text: "How often do you feel angry or irritated?",
+        options: [
+          { text: "Never", value: 0 },
+          { text: "Sometimes", value: 1 },
+          { text: "Often", value: 2 },
+          { text: "Always", value: 3 }
+        ]
+      },
+      {
+        id: "fear",
+        text: "How frequently do you feel fearful or anxious?",
+        options: [
+          { text: "Never", value: 0 },
+          { text: "Sometimes", value: 1 },
+          { text: "Often", value: 2 },
+          { text: "Always", value: 3 }
+        ]
+      },
+      {
+        id: "mood",
+        text: "How often do you feel sad or down?",
+        options: [
+          { text: "Never", value: 0 },
+          { text: "Sometimes", value: 1 },
+          { text: "Often", value: 2 },
+          { text: "Always", value: 3 }
+        ]
+      },
+      {
+        id: "sleep",
+        text: "Do you have trouble sleeping?",
+        options: [
+          { text: "No", value: 0 },
+          { text: "Sometimes", value: 1 },
+          { text: "Often", value: 2 },
+          { text: "Always", value: 3 }
+        ]
+      }
+    ];
+
+    const tipsData = {
+      Anger: [
+        "Practice deep breathing exercises.",
+        "Try regular mindfulness meditation.",
+        "Engage in calming hobbies like listening to music or gardening.",
+        "Step away from stressful situations when possible.",
+        "Talk to a counselor or trusted friend about your feelings."
+      ],
+      Fear: [
+        "Practice grounding techniques when feeling anxious.",
+        "Keep a journal detailing worries and challenge irrational fears.",
+        "Exercise regularly to relieve tension.",
+        "Seek professional support if fears interfere with daily life."
+      ],
+      Mood: [
+        "Maintain a consistent sleep and wake schedule.",
+        "Stay socially connected even when feeling down.",
+        "Set small achievable daily goals.",
+        "Consider talking to a mental health professional."
+      ],
+      Sleep: [
+        "Establish a calming bedtime routine.",
+        "Avoid screen use at least an hour before bed.",
+        "Limit caffeine and heavy meals in the evening.",
+        "Create a comfortable sleeping environment."
+      ]
+    };
+
+    const assessmentForm = document.getElementById('assessmentForm');
+    const resultMessage = document.getElementById('resultMessage');
+    const tipsSection = document.getElementById('tipsSection');
+    const tipsList = document.getElementById('tipsList');
+    const issueTitle = document.getElementById('issueTitle');
+    const showMoreTipsLink = document.getElementById('showMoreTips');
+    const progressFill = document.getElementById('progressFill');
+    const retakeBtn = document.getElementById('retakeBtn');
+
+    let currentQuestionIndex = 0;
+    let answers = {};
+
+    function renderQuestion(index) {
+      assessmentForm.innerHTML = '';
+
+      const question = questions[index];
+
+      const questionDiv = document.createElement('div');
+      questionDiv.classList.add('question', 'active');
+      questionDiv.id = `question_${index}`;
+
+      const qTitle = document.createElement('h3');
+      qTitle.textContent = question.text;
+      questionDiv.appendChild(qTitle);
+
+      const optionsDiv = document.createElement('div');
+      optionsDiv.classList.add('options');
+      question.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = opt.text;
+        btn.setAttribute('data-value', opt.value);
+        btn.onclick = () => {
+          answers[question.id] = opt.value;
+          [...optionsDiv.children].forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+              renderQuestion(currentQuestionIndex);
+              updateProgress();
+            } else {
+              showResults();
+            }
+          }, 350);
+        };
+        optionsDiv.appendChild(btn);
+      });
+      questionDiv.appendChild(optionsDiv);
+
+      assessmentForm.appendChild(questionDiv);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const percent = (currentQuestionIndex / questions.length) * 100;
+      progressFill.style.width = `${percent}%`;
+      progressFill.setAttribute('aria-valuenow', `${currentQuestionIndex}`);
+    }
+
+    function showResults() {
+      assessmentForm.innerHTML = '';
+      retakeBtn.style.display = 'block';
+
+      let maxIssue = 'Anger';
+      let maxScore = answers['anger'] || 0;
+      for (const q of questions) {
+        if ((answers[q.id] || 0) > maxScore) {
+          maxScore = answers[q.id];
+          maxIssue = q.id.charAt(0).toUpperCase() + q.id.slice(1);
+        }
+      }
+
+      if (maxScore === 0) {
+        resultMessage.textContent = "Your responses indicate good emotional health. Keep nurturing your mental well-being!";
+        tipsSection.style.display = 'none';
+      } else {
+        resultMessage.textContent = `Your responses suggest you may be experiencing difficulties related to ${maxIssue}.`;
+        showTips(maxIssue);
+      }
+    }
+
+    function showTips(issue) {
+      issueTitle.textContent = issue;
+      tipsList.innerHTML = '';
+      tipsData[issue].forEach(tip => {
+        const li = document.createElement('li');
+        li.textContent = tip;
+        tipsList.appendChild(li);
+      });
+      tipsSection.style.display = 'block';
+      showMoreTipsLink.href = `tips_${issue.toLowerCase()}.html`;
+    }
+
+    retakeBtn.onclick = () => {
+      currentQuestionIndex = 0;
+      answers = {};
+      resultMessage.textContent = '';
+      tipsSection.style.display = 'none';
+      retakeBtn.style.display = 'none';
+      renderQuestion(currentQuestionIndex);
+    };
+
+    // Initialize on page load
+    renderQuestion(currentQuestionIndex);
+  </script>
+</body>
+
+</html>

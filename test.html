@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manasoothi - PHQ-9 & GAD-7 Combined Questionnaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #f0f8ff;
+      --text-color: #1d4044;
+      --primary: #4fd1c5;
+      --primary-dark: #38b2ac;
+      --card-bg: white;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --teal: #38b2ac;
+      --yellow: #ffd700;
+      --orange: #ff9800;
+      --red: #e53935;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      background: url('imageh.jpg') no-repeat center center fixed;
+  
+  background-size: cover;
+  }
+  
+    .container {
+      max-width: 600px;
+      background: var(--card-bg);
+      margin: 40px auto;
+      border-radius: 10px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 24px var(--shadow-color);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+    .question-count {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    .question-text {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+    .answers {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    .answer-btn {
+      flex: 1;
+      margin: 0 5px;
+      padding: 12px 0;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .answer-btn:hover,
+    .answer-btn.selected {
+      background: var(--primary-dark);
+    }
+    .progress-bar-wrapper {
+      background: #d9f2ef;
+      border-radius: 20px;
+      height: 14px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    .progress-bar {
+      background: var(--primary);
+      height: 14px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .result {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 12px;
+    }
+    .result-header {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: white;
+    }
+    .result-score {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: white;
+    }
+    .result-text {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      color: white;
+    }
+    .dual-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .retake-btn,
+    #back-home-btn {
+      background: white;
+      color: var(--primary-dark);
+      padding: 12px 30px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 8px var(--shadow-color);
+      transition: background 0.3s ease;
+      margin-top: 30px;
+      display: block;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .retake-btn:hover,
+    #back-home-btn:hover {
+      background: #e4f5f4;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+      .answer-btn {
+        padding: 10px 0;
+        font-size: 0.9rem;
+      }
+      .dual-results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="quiz-container">
+    <h1>Manasoothi Mental Health Questionnaire</h1>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="question-count" id="question-count">Question 1 of 16</div>
+    <div class="question-text" id="question-text"></div>
+    <div class="answers" id="answers">
+      <button class="answer-btn" data-value="0">Not at all</button>
+      <button class="answer-btn" data-value="1">Several days</button>
+      <button class="answer-btn" data-value="2">More than half the days</button>
+      <button class="answer-btn" data-value="3">Nearly every day</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      "Little interest or pleasure in doing things",
+      "Feeling down, depressed, or hopeless",
+      "Trouble falling or staying asleep, or sleeping too much",
+      "Feeling tired or having little energy",
+      "Poor appetite or overeating",
+      "Feeling bad about yourself — or that you’re a failure or have let yourself or your family down",
+      "Trouble concentrating on things, such as reading or watching TV",
+      "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving a lot more than usual",
+      "Thoughts that you would be better off dead or of hurting yourself in some way",
+      "Feeling nervous, anxious, or on edge",
+      "Not being able to stop or control worrying",
+      "Worrying too much about different things",
+      "Trouble relaxing",
+      "Being so restless that it’s hard to sit still",
+      "Becoming easily annoyed or irritable",
+      "Feeling afraid as if something awful might happen"
+    ];
+
+    const phqCategories = [
+      {
+        min: 0,
+        max: 4,
+        label: "Minimal/Normal",
+        color: "#38B2AC",
+        advice:
+          "You seem to be doing well. Maintain healthy routines and self-care."
+      },
+      {
+        min: 5,
+        max: 9,
+        label: "Mild",
+        color: "#FFD700",
+        advice:
+          "You may be having some mild symptoms — practicing regular mindfulness and self-care may help. Check our resources!"
+      },
+      {
+        min: 10,
+        max: 14,
+        label: "Moderate",
+        color: "#FF9800",
+        advice:
+          "You show moderate depressive symptoms. Consider reaching out, explore meditation and support groups on our platform."
+      },
+      {
+        min: 15,
+        max: 27,
+        label: "Severe/High",
+        color: "#E53935",
+        advice:
+          "You are experiencing significant symptoms. Please consider talking to a mental health professional and use our guided meditation and support resources immediately."
+      }
+    ];
+
+    const gadCategories = [
+      {
+        min: 0,
+        max: 4,
+        label: "Minimal/Normal",
+        color: "#38B2AC",
+        advice:
+          "You seem to be doing well. Maintain healthy routines and self-care."
+      },
+      {
+        min: 5,
+        max: 9,
+        label: "Mild",
+        color: "#FFD700",
+        advice:
+          "You may be experiencing some anxiety — practicing mindfulness and self-care may help."
+      },
+      {
+        min: 10,
+        max: 14,
+        label: "Moderate",
+        color: "#FF9800",
+        advice: "You show moderate anxiety symptoms. Consider reaching out for support."
+      },
+      {
+        min: 15,
+        max: 21,
+        label: "Severe/High",
+        color: "#E53935",
+        advice:
+          "You are experiencing significant anxiety symptoms. Please consider talking to a mental health professional immediately."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let answers = [];
+
+    const questionCountEl = document.getElementById("question-count");
+    const questionTextEl = document.getElementById("question-text");
+    const answersEl = document.getElementById("answers");
+    const progressBar = document.getElementById("progress-bar");
+    const quizContainer = document.getElementById("quiz-container");
+
+    function loadQuestion() {
+      questionCountEl.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      questionTextEl.textContent = questions[currentQuestion];
+      progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+      document.querySelectorAll(".answer-btn").forEach((btn) =>
+        btn.classList.remove("selected")
+      );
+    }
+
+    function showResult(phqScore, gadScore) {
+      progressBar.style.width = "100%";
+
+      const phqCategory = phqCategories.find(
+        (cat) => phqScore >= cat.min && phqScore <= cat.max
+      );
+      const gadCategory = gadCategories.find(
+        (cat) => gadScore >= cat.min && gadScore <= cat.max
+      );
+
+      const phqIndex = phqCategories.indexOf(phqCategory);
+      const gadIndex = gadCategories.indexOf(gadCategory);
+      const combinedSeverityIndex = Math.max(phqIndex, gadIndex);
+
+      const quotes = [
+        `"Healing takes time, and your courage matters every day." — Unknown`,
+        `"Small steps forward are still progress. Keep going." — Unknown`,
+        `"Your struggles do not define you; your strength does." — Unknown`,
+        `"Even the darkest night will end and the sun will rise." — Victor Hugo`
+      ];
+
+      const suggestions = [
+        `<ul>
+          <li>Focus on eating a balanced, nutritious diet rich in fruits and vegetables.</li>
+          <li>Take up new hobbies or activities that spark joy and creativity.</li>
+          <li>Maintain good sleep hygiene and stay physically active.</li>
+          <li>Practice positive daily routines to build healthy structure in your life.</li>
+        </ul>`,
+        `<ul>
+          <li>Try mindfulness meditation for 5-10 minutes daily.</li>
+          <li>Ensure consistent, restful sleep hygiene.</li>
+          <li>Include light physical activity, such as walking, in your day.</li>
+          <li>Limit exposure to stressors where possible.</li>
+        </ul>`,
+        `<ul>
+          <li>Reach out to support groups or counseling services.</li>
+          <li>Practice grounding exercises to manage overwhelming feelings.</li>
+          <li>Consider journaling as a means of expression.</li>
+          <li>Incorporate structured routine with regular breaks.</li>
+        </ul>`,
+        `<ul>
+          <li>Please seek professional mental health support if you haven't already.</li>
+          <li>Use crisis or helpline resources immediately. For example:<br>
+              <strong>National Helpline (India): 9152987821</strong></li>
+          <li>Consider connecting with licensed therapists via teletherapy platforms like BetterHelp, Talkspace, or local mental health clinics.</li>
+          <li>Use crisis chat or text services if in urgent distress.</li>
+          <li>Lean on trusted friends or family members for support.</li>
+          <li>Use guided mindfulness or relaxation apps daily.</li>
+        </ul>`
+      ];
+
+      quizContainer.innerHTML = `
+        <h1>Results Summary</h1>
+        <div class="dual-results">
+          <div class="result" style="background-color: ${phqCategory.color}; padding: 20px; border-radius: 12px; color: white;">
+            <div class="result-header">Depression (PHQ-9): ${phqCategory.label}</div>
+            <div class="result-score">Score: ${phqScore} / 27</div>
+            <div class="result-text">${phqCategory.advice}</div>
+            ${
+              phqCategory.label === "Severe/High"
+                ? `<p style="font-weight: 700;">If you need urgent help for depression, please contact a mental health professional immediately.</p>`
+                : ""
+            }
+          </div>
+          <div class="result" style="background-color: ${gadCategory.color}; padding: 20px; border-radius: 12px; color: white;">
+            <div class="result-header">Anxiety (GAD-7): ${gadCategory.label}</div>
+            <div class="result-score">Score: ${gadScore} / 21</div>
+            <div class="result-text">${gadCategory.advice}</div>
+            ${
+              gadCategory.label === "Severe/High"
+                ? `<p style="font-weight: 700;">If you need urgent help for anxiety, please contact a mental health professional immediately.</p>`
+                : ""
+            }
+          </div>
+        </div>
+
+        <blockquote style="font-style: italic; margin: 25px 0 20px; font-size: 1.25rem; color: #276768;">
+          ${quotes[combinedSeverityIndex]}
+        </blockquote>
+
+        <h3 style="margin-bottom:12px; color:#276768;">Self-Care & Relief Suggestions</h3>
+        <div style="text-align: left; max-height: 180px; overflow-y: auto;">
+          ${suggestions[combinedSeverityIndex]}
+        </div>
+
+        <p style="margin-top: 25px; font-weight: 700; font-size: 1rem; color: #d32f2f;">
+          Remember: <strong>Every life matters and giving up is not an option.</strong> You are not alone.
+        </p>
+
+        <button class="retake-btn" id="retake-btn">Retake Test</button>
+        <button id="back-home-btn" style="
+            margin-top: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 32px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: background 0.3s ease;
+            display: block;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        ">Back to Home</button>
+      `;
+
+      document.getElementById("retake-btn").addEventListener("click", () => {
+        currentQuestion = 0;
+        answers = [];
+        quizContainer.innerHTML = `
+          <h1>Manasoothi Mental Health Questionnaire</h1>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="question-count" id="question-count">Question 1 of 16</div>
+          <div class="question-text" id="question-text"></div>
+          <div class="answers" id="answers">
+            <button class="answer-btn" data-value="0">Not at all</button>
+            <button class="answer-btn" data-value="1">Several days</button>
+            <button class="answer-btn" data-value="2">More than half the days</button>
+            <button class="answer-btn" data-value="3">Nearly every day</button>
+          </div>
+        `;
+        bindEvents();
+        loadQuestion();
+      });
+
+      document.getElementById("back-home-btn").addEventListener("click", () => {
+        window.location.href = "home.html"; // Adjust to your actual home page URL if needed
+      });
+    }
+
+    function bindEvents() {
+      answersEl.querySelectorAll(".answer-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          answersEl.querySelectorAll(".answer-btn").forEach((b) =>
+            b.classList.remove("selected")
+          );
+          btn.classList.add("selected");
+          let val = parseInt(btn.getAttribute("data-value"));
+          answers[currentQuestion] = val;
+          setTimeout(() => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+              loadQuestion();
+            } else {
+              const phqScore = answers.slice(0, 9).reduce((a, b) => a + b, 0);
+              const gadScore = answers.slice(9).reduce((a, b) => a + b, 0);
+              showResult(phqScore, gadScore);
+            }
+          }, 300);
+        });
+      });
+    }
+
+    loadQuestion();
+    bindEvents();
+  </script>
+</body>
+</html>
+
+
+
