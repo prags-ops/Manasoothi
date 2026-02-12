@@ -11,38 +11,61 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            color:#1e2a38
         }
-
         :root {
-            --bg-color: #f0f8ff;
-            --text-color: #1D4044;
-            --primary: #4FD1C5;
-            --primary-dark: #38B2AC;
-            --card-bg: white;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
+  --bg-color: transparent;
+  --text-color: #ffffff;
+  --primary: rgba(255, 255, 255, 0.85);
+  --primary-dark: rgba(255, 255, 255, 0.95);
+  --card-bg: rgba(255, 255, 255, 0.18);
+  --shadow-color: rgba(0, 0, 0, 0.25);
+}
+     body {
+  color: var(--text-color);
+}
 
-        .dark-mode {
-            --bg-color: #1D4044;
-            --text-color: #f0f8ff;
-            --card-bg: #2D4E52;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-        }
 
-        body {
+     body.dark-mode {
+  --bg-color: transparent;
+  --text-color: #eaeaea;
+
+  --card-bg: rgba(0, 0, 0, 0.35);
+  --primary: rgba(255, 255, 255, 0.9);
+  --primary-dark: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+}
+    body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
             transition: all 0.3s ease;
-        background: url('imageg.jpg') no-repeat center center fixed;
+        background: url('mountain.jpg') no-repeat center center fixed;
   
   background-size: cover;
         }
+        body {
+  color: var(--text-color);
+}
 
-        .devanagari {
-            font-family: 'Noto Sans Devanagari', sans-serif;
+h1, h2, h3, h4, h5 {
+  color:#eceef1;
+}
+
+p,li {
+  color:#95a3b1;
+}
+.copyright{
+    color: #95a3b1;
+}
+body.dark.copyright{
+    color: #eaeaea;
+}
+    .devanagari {
+         font-family: 'Noto Sans Devanagari', sans-serif;
+         color:#9ca1a6;
         }
 
         .navbar {
@@ -73,13 +96,19 @@
             gap: 20px;
         }
 
-        .dark-mode-toggle {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: var(--text-color);
-        }
+         .dark-mode-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color:#1e2a38;
+
+  transition: transform 0.5s ease, color 0.3s ease;
+}
+
+.dark-mode-toggle.rotate {
+  transform: rotate(360deg);
+}
 
         .menu-btn {
             background: none;
@@ -94,20 +123,26 @@
             text-decoration: none;
             font-weight: 500;
         }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100vh;
-            background: var(--card-bg);
-            box-shadow: 2px 0 10px var(--shadow-color);
-            z-index: 99;
-            transition: all 0.3s ease;
-            padding-top: 70px;
-            overflow-y: auto;
-        }
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    color:#95a3b1;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 4px 0 20px var(--shadow-color);
+    z-index: 99;
+    transition: left 0.35s ease;
+    padding-top: 70px;
+}
+.dark-mode .nav-links a:hover,
+.dark-mode .nav-links a.active {
+    background: var(--primary-dark);
+    color: #b08b8b;
+}
 
         .sidebar.open {
             left: 0;
@@ -133,17 +168,21 @@
             padding: 12px 15px;
             margin-bottom: 8px;
             text-decoration: none;
-            color: var(--text-color);
+            color: #1e2a38;
+            font-weight: 600;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: var(--primary);
-            color: white;
-        }
+      .nav-links a:hover,
+      .nav-links a.active {
+          background: rgba(255, 255, 255, 0.15);
+          color: #1e2a38;
+}
 
+body.dark-mode .nav-links a {
+  color: #eaeaea;
+}
         .contact-info {
             padding: 20px;
             margin-top: 20px;
@@ -168,7 +207,8 @@
         }
 
         .hero {
-            background: linear-gradient(-45deg, #E6FFFA, #B2F5EA, #81E6D9, #4FD1C5);
+            background: rgba(253, 251, 251, 0.55); /* more transparent */
+            backdrop-filter: blur(6px);           /* glass effect */
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             padding: 40px 20px;
@@ -180,8 +220,7 @@
             text-align: center;
             gap: 30px;
         }
-
-        @keyframes gradientBG {
+                @keyframes gradientBG {
             0% {
                 background-position: 0% 50%;
             }
@@ -226,12 +265,33 @@
         }
 
         .section-title {
+             color: var(--primary-dark);
             text-align: center;
             font-size: 1.8rem;
             margin: 40px 0 30px;
         }
 
         /* Flippable Quote Cards */
+        /* Glassmorphism for all cards */
+.hero,
+.community,
+.login-cta,
+.card-front,
+.card-back {
+  color: var(--text-color);
+}
+/* Dark mode for all boxes */
+body.dark-mode .hero,
+body.dark-mode .community,
+body.dark-mode .login-cta,
+body.dark-mode .card-front,
+body.dark-mode .card-back {
+    background: rgba(20, 25, 30, 0.85); /* darker glass */
+    color: #eaeaea; /* text lighter for contrast */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+
 
         .quotes-grid {
             display: grid;
@@ -240,8 +300,7 @@
             margin-bottom: 40px;
         }
 
-        .quote-card {
-            background: none;
+        .quote-card {           /* glass effect */
             perspective: 1100px;
             height: 440px;
             border-radius: 18px;
@@ -269,7 +328,9 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            background: var(--card-bg);
+            background: rgba(129, 125, 125, 0.45); /* transparent glass */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -303,15 +364,24 @@
 
         .flip-prompt {
             font-size: 1.02rem;
-            color: var(--primary-dark);
+            color:rgb(49, 52, 49);
             margin-top: 8px;
-            background: #E6FFFA;
+            background: #adaeae;
             padding: 5px 14px;
             border-radius: 18px;
             font-weight: 600;
             letter-spacing: .1px;
             box-shadow: 0 1px 4px var(--shadow-color);
         }
+body.dark-mode .flip-prompt {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+.hero h1,
+.hero p {
+    color:#1e2a38 /* makes hero text visible */
+}
+
 
         .quote-text {
             font-style: italic;
@@ -340,7 +410,9 @@
         }
 
         .community {
-            background: var(--card-bg);
+            background: rgba(121, 116, 116, 0.45); /* transparent glass */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 30px 20px;
             text-align: center;
             margin-bottom: 40px;
@@ -364,7 +436,7 @@
             align-items: center;
             padding: 12px 24px;
             background: var(--primary);
-            color: white;
+            color: rgb(36, 34, 34);
             border-radius: 50px;
             text-decoration: none;
             font-weight: 500;
@@ -383,7 +455,9 @@
         }
 
         .login-cta {
-            background: var(--card-bg);
+            background: rgba(96, 93, 93, 0.45); /* transparent glass */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 30px;
             text-align: center;
             max-width: 500px;
@@ -406,7 +480,7 @@
             display: inline-block;
             padding: 12px 30px;
             background: var(--primary);
-            color: white;
+            color: rgb(36, 34, 34);
             border-radius: 50px;
             text-decoration: none;
             font-weight: 500;
@@ -422,8 +496,8 @@
         }
 
         footer {
-            background: var(--primary-dark);
-            color: white;
+            background-color:rgba(245,251,255,0.7);
+            backdrop-filter:blur(0px);
             padding: 30px 20px;
             text-align: center;
         }
@@ -449,7 +523,7 @@
         }
 
         .footer-links a {
-            color: white;
+            color: rgb(32, 28, 28);
             text-decoration: none;
         }
 
@@ -495,10 +569,122 @@
                 font-size: 1.3rem;
             }
         }
-    </style>
+        .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 98;
+}
+
+.overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+}
+
+/* rotation animation */
+.theme-toggle.rotate {
+  transform: rotate(360deg);
+}
+/* Dark mode header */
+body.dark-mode .navbar {
+    background: rgba(20, 25, 30, 0.85); /* darker, less transparent */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+
+/* Dark mode footer */
+body.dark-mode footer {
+    background: rgba(20, 25, 30, 0.85);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}/* === Dark mode text color fixes === */
+/* === Text & background color fixes for dark and light mode === */
+
+/* Headings, paragraphs, links, Sanskrit text */
+h1, h2, h3, h4, h5,
+p, span, li,
+.devanagari,
+.nav-links a,
+.contact-info p,
+.contact-info a,
+.quote-text,
+.quote-author,
+.flip-prompt,
+.footer-links a {
+    color: #1e2a38; /* Default for light mode */
+}
+
+/* Flip prompt background in light mode */
+.flip-prompt {
+    background: #adaeae; 
+    color: #313433; /* Text on flip box */
+}
+
+/* Dark mode overrides */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode li,
+body.dark-mode .devanagari,
+body.dark-mode .nav-links a,
+body.dark-mode .contact-info p,
+body.dark-mode .contact-info a,
+body.dark-mode .quote-text,
+body.dark-mode .quote-author,
+body.dark-mode .flip-prompt,
+body.dark-mode .footer-links a {
+    color: #eaeaea !important;
+}
+
+/* Flip prompt background in dark mode */
+body.dark-mode .flip-prompt {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* Links hover in dark mode */
+body.dark-mode a:hover,
+body.dark-mode .nav-links a:hover {
+    color: #ffffff !important;
+}
+/* Sidebar text & pointer fix for light mode */
+.sidebar a {
+    color: #1e2a38;       /* dark text for light mode */
+    cursor: pointer;      /* pointer on hover */
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: rgba(0,0,0,0.05);  /* subtle hover effect */
+    color: #1e2a38;
+}
+/* ===== HEADER LOGO DARK MODE FIX ===== */
+body.dark-mode .navbar .logo,
+body.dark-mode .navbar .logo span,
+body.dark-mode .navbar .logo .devanagari {
+    color: #eaeaea !important;
+}
+
+</style>
 </head>
 
 <body>
+    <div class="overlay" id="overlay"></div>
+
     <!-- Top Navigation Bar -->
     <nav class="navbar">
         <div class="logo">
@@ -508,8 +694,8 @@
             </div>
         </div>
         <div class="nav-controls">
-            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
-            <p>✉ <a href="mailto:pragatikatiyar@gmail.com">Contact Us</a></p>
+            <button id="darkModeToggle" class="theme-toggle"> 🌙</button>
+            <p>✉ <a href="mailto:pragatikatiyar73@gmail.com">Contact Us</a></p>
         </div>
     </nav>
 
@@ -524,7 +710,7 @@
             <a href="index.html">Logout</a>
         </div>
         <div class="contact-info">
-            <p>✉ <a href="mailto:rakshithvrakshithv9@gmail.com">Contact Us</a></p>
+            <p>✉ <a href="mailto:pragatikatiyar73@gmail.com">Contact Us</a></p>
         </div>
     </div>
 
@@ -564,7 +750,7 @@
             <div class="quote-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="quote4.jpg" alt="Rumi portrait" class="author-img-large" />
+                        <img src="quote2.jpg" alt="Rumi portrait" class="author-img-large" />
                         <span class="flip-prompt">Click</span>
                     </div>
                     <div class="card-back">
@@ -579,7 +765,7 @@
             <div class="quote-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="quote3.jpg" alt="Gautama Buddha portrait" class="author-img-large" />
+                        <img src="quote3 .jpg" alt="Gautama Buddha portrait" class="author-img-large" />
                         <span class="flip-prompt">Click</span>
                     </div>
                     <div class="card-back">
@@ -594,7 +780,7 @@
             <div class="quote-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="quote2.jpg" class="author-img-large" />
+                        <img src="quote4.jpg" class="author-img-large" />
                         <span class="flip-prompt">Click </span>
                     </div>
                     <div class="card-back">
@@ -635,7 +821,7 @@
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="#">About Us</a>
-                <a href="mailto:pragatikatiyar@gmail.com">Email Us</a>
+                <a href="mailto:pragatikatiyar73@gmail.com">Email Us</a>
             </div>
             <div class="copyright">
                 © 2023 Manasoothi. All rights reserved.
@@ -644,31 +830,44 @@
     </footer>
 
     <script>
-        // Hamburger, sidebar and dark mode
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuBtn = document.querySelector(".menu-btn");
-            const sidebar = document.getElementById("sidebar");
-            const closeBtn = document.querySelector(".close-btn");
+   
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.querySelector(".menu-btn");
+    const sidebar = document.getElementById("sidebar");
+    const closeBtn = document.querySelector(".close-btn");
+    const overlay = document.getElementById("overlay");
 
-            menuBtn.onclick = () => sidebar.classList.add("open");
-            closeBtn.onclick = () => sidebar.classList.remove("open");
+    menuBtn.onclick = () => {
+        sidebar.classList.add("open");
+        overlay.classList.add("show");
+    };
 
-            window.onclick = function (e) {
-                if (e.target === sidebar) sidebar.classList.remove("open");
-            };
+    closeBtn.onclick = closeSidebar;
+    overlay.onclick = closeSidebar;
 
-            document.getElementById("darkModeToggle").onclick = function () {
-                document.body.classList.toggle('dark-mode');
-            };
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("show");
+    }
 
-            // Flip card logic
-            document.querySelectorAll('.quote-card').forEach(card => {
-                card.addEventListener('click', function () {
-                    card.classList.toggle('flipped');
-                });
-            });
+      const darkToggle = document.getElementById("darkModeToggle");
+
+darkToggle.onclick = () => {
+  document.body.classList.toggle("dark-mode");
+  darkToggle.classList.toggle("rotate");
+};
+
+    // Flip cards
+    document.querySelectorAll('.quote-card').forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
         });
-    </script>
+    });
+});
+</script>
+
+    <script src="cookies.js"></script>
 </body>
 
 </html>
+

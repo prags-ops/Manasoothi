@@ -6,26 +6,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Heal Quest – Mental Wellness</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 40px 20px 40px;
-      background: linear-gradient(135deg, #c1e1c1 0%, #a3d9a5 100%);
-      color: #1b4332;
-      display: flex;
-      justify-content: center;
-    }
-    main {
-      max-width: 600px;
-      width: 100%;
-      background: white;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    }
+    *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+  body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+
+  background: linear-gradient(
+    135deg,
+    #8bc5e9,
+    #7db1ec,
+    #8caae2,
+    #aacbf4
+  );
+  background-size: 300% 300%;
+  animation: warmFlow 16s ease-in-out infinite;
+
+  color: #2f2a24;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes calmFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+main {
+  max-width: 600px;
+  width: 100%;
+  padding: 34px 42px;
+  border-radius: 20px;
+
+  /* GREY GLASS EFFECT */
+  background: rgba(240, 240, 240, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
     h2 {
       text-align: center;
       margin-bottom: 6px;
-      color: #2d6a4f;
+      color: #4976b1;
       font-weight: 700;
       font-size: 2rem;
     }
@@ -34,70 +72,91 @@
       margin-bottom: 30px;
       font-style: italic;
       font-weight: 600;
-      color: #276749;
+      color: #3e71ac;
       font-size: 1.1rem;
       user-select: none;
     }
     /* XP Bar */
     .xp-bar {
-      background: #cce4cb;
+      background: rgba(255, 255, 255, 0.55);
+backdrop-filter: blur(6px);
+
       border-radius: 25px;
       height: 26px;
       overflow: hidden;
       margin-bottom: 25px;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
     }
-    .xp-fill {
-      background: #2d6a4f;
-      height: 100%;
-      width: 0;
-      border-radius: 25px 0 0 25px;
-      transition: width 0.5s ease;
-    }
+   .xp-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 25px 0 0 25px;
+
+  background: linear-gradient(
+    90deg,
+    #61a3f4,
+    #5172e7
+  );
+
+  transition: width 0.5s ease;
+}
+
     #levelLine {
       text-align: center;
       margin-bottom: 40px;
       font-weight: bold;
       font-size: 1.25rem;
-      color: #276749;
+      color: #4376c3;
       user-select: none;
     }
     /* Quest cards */
     .quest {
-      margin-bottom: 25px;
-      border-radius: 12px;
-      border: 2px solid #def7ec;
-      padding: 18px 20px;
-      box-shadow: 0 6px 12px rgba(34, 79, 34, 0.1);
-    }
+  margin-bottom: 25px;
+  border-radius: 12px;
+  padding: 18px 20px;
+
+  background: #ffffff;        /* SOLID background */
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  border: 1px solid #e5e7eb;  /* clean border */
+}
+
     .quest-text {
       font-size: 1.15rem;
       margin-bottom: 15px;
-      color: #276749;
+      color: #1d3671;
       font-weight: 600;
       user-select: none;
     }
     /* Comment box only for user answer quests */
     textarea {
-      width: 100%;
-      min-height: 65px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-      border-radius: 12px;
-      border: 1.5px solid #a7d7a7;
-      font-size: 1rem;
-      font-family: inherit;
-      resize: vertical;
-      color: #1b4332;
-      outline-offset: 2px;
-      transition: box-shadow 0.3s ease;
-    }
-    textarea:focus {
-      box-shadow: 0 0 8px #3b8c3b;
-      border-color: #3b8c3b;
-    }
+  width: 100%;
+  min-height: 90px;                 /* MORE SPACE */
+  padding: 14px 16px;               /* INNER COMFORT */
+  margin-bottom: 12px;
+
+  border-radius: 14px;
+  border: 2px solid #c7d8f5;        /* LIGHT BLUE OUTLINE */
+
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+
+  resize: vertical;
+  color: #1e3a8a;                   /* DARK BLUE TEXT */
+  background: #f8fbff;
+
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+textarea:focus {
+  border-color: #4f7cff;            /* DARKER BLUE */
+  box-shadow: 0 0 0 3px rgba(79,124,255,0.2);
+  background: #ffffff;
+}
+
     button.submit-btn {
-      background: #2d6a4f;
+      background: #4982b1;
       color: white;
       border: none;
       border-radius: 10px;
@@ -113,12 +172,18 @@
       margin-top: 5px;
     }
     button.submit-btn:hover:not(:disabled) {
-      background: #276749;
+      background: #2d5081;
     }
     button.submit-btn:disabled {
-      background: #a7c5a7;
-      cursor: default;
-    }
+  background: linear-gradient(
+    135deg,
+    #7aa2d6,
+    #5b7fc7
+  );
+  color: #ffffff;
+  cursor: default;
+}
+
     .comments {
       margin-top: 12px;
       font-size: 0.9rem;
@@ -130,6 +195,7 @@
       user-select: text;
     }
   </style>
+  <script src="app.js"></script>
 </head>
 <body>
   <main>
@@ -143,6 +209,26 @@
   </main>
 
 <script>
+
+function submitQuest(button, index) {
+    const questDiv = button.parentElement;
+    const questObj = quests[index];
+    const textarea = questDiv.querySelector('textarea');
+
+    if (questObj.requiresComment) {
+        if (!textarea.value.trim()) {
+            alert('Please provide a comment!');
+            return;
+        }
+        textarea.disabled = true;
+    }
+
+    button.disabled = true;
+    button.textContent = "Completed ✅";
+    
+    // Call the Global XP function
+    addXP(10); 
+}
   const quests = [
     {text: "Drink 2 glasses of water 💧", requiresComment: false},
     {text: "Take a 10-minute walk 🚶", requiresComment: false},

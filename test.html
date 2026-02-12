@@ -8,12 +8,12 @@
   <style>
     :root {
       --bg-color: #f0f8ff;
-      --text-color: #1d4044;
-      --primary: #4fd1c5;
-      --primary-dark: #38b2ac;
+      --text-color: #44291d;
+      --primary: #5c4d49;
+      --primary-dark: #4a3b2f;
       --card-bg: white;
       --shadow-color: rgba(0, 0, 0, 0.1);
-      --teal: #38b2ac;
+      --teal: #423732;
       --yellow: #ffd700;
       --orange: #ff9800;
       --red: #e53935;
@@ -29,60 +29,91 @@
   background-size: cover;
   }
   
-    .container {
-      max-width: 600px;
-      background: var(--card-bg);
-      margin: 40px auto;
-      border-radius: 10px;
-      padding: 30px 40px;
-      box-shadow: 0 4px 24px var(--shadow-color);
-    }
+   .container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  border-radius: 20px;
+
+  /* GLASS EFFECT */
+  background: rgba(255, 255, 255, 0.25); /* semi-transparent white */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  color: #0e1f2f; /* darker blue-gray text for readability */
+}
+
     h1 {
       text-align: center;
       margin-bottom: 20px;
-      color: var(--primary-dark);
+      color: #3a322e;;
     }
     .question-count {
       font-weight: 600;
       margin-bottom: 10px;
-      color: var(--primary);
+      color: #383433;;
     }
     .question-text {
       font-size: 1.2rem;
       margin-bottom: 25px;
+      color: #211e1d;
     }
-    .answers {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-    .answer-btn {
-      flex: 1;
-      margin: 0 5px;
-      padding: 12px 0;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    .answer-btn:hover,
-    .answer-btn.selected {
-      background: var(--primary-dark);
-    }
+   .answers {
+  display: flex;
+  flex-direction: column; /* stacked on mobile, side-by-side on desktop */
+  gap: 15px; /* space between buttons */
+  margin-bottom: 30px;
+}
+
+@media(min-width: 480px){
+  .answers {
+    flex-direction: row; /* horizontal on bigger screens */
+  }
+}
+    
+.answer-btn {
+  flex: 1;
+  padding: 16px 0;           /* taller buttons for easier clicking */
+  margin: 0;                  /* gap handled by flex gap */
+  font-size: 1rem;            /* readable text */
+  font-weight: 600;
+  color: white;
+  background: rgba(53, 44, 40, 0.85); /* semi-transparent dark button */
+  border: none;
+  border-radius: 12px;        /* slightly more rounded */
+  cursor: pointer;
+  user-select: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-btn:hover,
+.answer-btn.selected {
+  background: rgba(81, 64, 58, 0.85);
+  transform: scale(1.03); /* subtle pop effect on hover/selection */
+}
+
+@media(max-width: 480px){
+  .answer-btn {
+    font-size: 0.95rem;
+    padding: 14px 0;
+  }
+}
     .progress-bar-wrapper {
-      background: #d9f2ef;
+        background: rgba(255, 255, 255, 0.25); 
       border-radius: 20px;
       height: 14px;
       overflow: hidden;
       margin-bottom: 30px;
     }
     .progress-bar {
-      background: var(--primary);
-      height: 14px;
+      background:  #3a3635;
+            height: 14px;
       width: 0%;
       transition: width 0.4s ease;
     }

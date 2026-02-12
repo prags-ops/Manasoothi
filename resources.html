@@ -7,27 +7,43 @@
   <title>Manasoothi - Mental Health Resources & Self-Assessment</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg-color: #f0f8ff;
-      --text-color: #1D4044;
-      --primary: #4FD1C5;
-      --primary-dark: #38B2AC;
-      --card-bg: white;
-      --shadow-color: rgba(0, 0, 0, 0.1);
-    }
+   :root {
+  --bg-color: transparent;
+  --text-color: #ffffff;
+  --primary: rgba(255, 255, 255, 0.85);
+  --primary-dark: rgba(255, 255, 255, 0.95);
+  --card-bg: rgba(255, 255, 255, 0.18);
+  --shadow-color: rgba(0, 0, 0, 0.25);
+}
 
-    .dark-mode {
-      --bg-color: #1D4044;
-      --text-color: #f0f8ff;
-      --card-bg: #2D4E52;
-      --shadow-color: rgba(0, 0, 0, 0.3);
-    }
+     body {
+  color: var(--text-color);
+}
+
+h1, h2, h3 {
+  color: var(--primary-dark);
+}
+
+  
+
+   body.dark-mode {
+  --bg-color: transparent;
+  --text-color: #eaeaea;
+
+  /* Glass colors */
+  --card-bg: rgba(0, 0, 0, 0.35);
+  --primary: rgba(255, 255, 255, 0.9);
+  --primary-dark: #ffffff;
+
+  --shadow-color: rgba(0, 0, 0, 0.6);
+}
 
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -55,13 +71,16 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: var(--card-bg);
-      box-shadow: 0 2px 10px var(--shadow-color);
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 101;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 20px var(--shadow-color);
+ padding: 15px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 101;
     }
 
     .logo {
@@ -79,17 +98,18 @@
     }
 
     .dark-mode-toggle {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-color);
-      transition: color 0.3s;
-    }
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
 
-    .dark-mode-toggle:hover {
-      color: var(--primary-dark);
-    }
+  transition: transform 0.5s ease, color 0.3s ease;
+}
+
+.dark-mode-toggle.rotate {
+  transform: rotate(360deg);
+}
 
     .menu-btn {
       background: none;
@@ -101,7 +121,7 @@
     }
 
     .menu-btn:hover {
-      color: var(--primary-dark);
+      color:dimgray;
     }
 
     .contact-link {
@@ -125,10 +145,13 @@
       width: 280px;
       height: 100vh;
       background: var(--card-bg);
-      box-shadow: 2px 0 10px var(--shadow-color);
-      z-index: 100;
-      transition: all 0.3s ease;
-      padding-top: 80px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 4px 0 30px var(--shadow-color);
+  z-index: 100;
+
+  transition: left 0.35s ease;
+  padding-top: 80px;
       overflow-y: auto;
     }
 
@@ -161,7 +184,8 @@
       padding: 13px 18px;
       margin-bottom: 8px;
       text-decoration: none;
-      color: var(--text-color);
+      color: #1e2a38;   /* DARK TEXT – visible on blur */
+     font-weight: 600;
       border-radius: 8px;
       transition: background-color 0.3s, color 0.3s;
       cursor: pointer;
@@ -169,9 +193,13 @@
 
     .nav-links a.active,
     .nav-links a:hover {
-      background: var(--primary);
-      color: white;
-    }
+  background: rgba(255, 255, 255, 0.25); /* glass highlight */
+  color: #1e2a38;
+}
+
+body.dark-mode .nav-links a:hover {
+  color:  #eaeaea;
+}
 
     .nav-links .submenu {
       margin-left: 15px;
@@ -249,13 +277,18 @@
     }
 
     /* Mental health practices section */
-    section.practices {
+    section.practices,
+    section.self-assessment {
       background: var(--card-bg);
-      box-shadow: 0 4px 16px var(--shadow-color);
-      border-radius: 14px;
-      padding: 22px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px var(--shadow-color);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 30px 25px 30px 25px;
       margin-bottom: 40px;
     }
+
 
     section.practices p {
       font-size: 1.1rem;
@@ -271,16 +304,7 @@
     }
 
     /* Self assessment section */
-    section.self-assessment {
-      background: var(--card-bg);
-      box-shadow: 0 4px 16px var(--shadow-color);
-      border-radius: 14px;
-      padding: 22px 30px;
-      margin-bottom: 40px;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+   
 
     section.self-assessment h2 {
       margin-bottom: 20px;
@@ -294,20 +318,24 @@
     }
 
     #progressBar {
-      width: 100%;
-      height: 8px;
-      background: #e0f2f1;
-      border-radius: 6px;
-      margin-bottom: 25px;
-    }
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
 
-    #progressFill {
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      border-radius: 6px;
-      transition: width 0.35s ease-in-out;
-    }
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  border-radius: 6px;
+  transition: width 0.35s ease-in-out;
+}
+.dark-mode #progressBar {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 
     .question {
       display: none;
@@ -331,8 +359,8 @@
     }
 
     .option-btn {
-      background: var(--primary);
-      color: white;
+       background: rgba(255, 255, 255, 0.9);
+  color: #000;
       border: none;
       padding: 14px 22px;
       border-radius: 50px;
@@ -346,30 +374,37 @@
 
     .option-btn:hover,
     .option-btn:focus {
-      background: var(--primary-dark);
+       background: rgba(255, 255, 255, 1);
       outline: none;
     }
 
     button#retakeBtn {
-      margin-top: 30px;
-      background: var(--primary);
-      color: white;
-      font-weight: 700;
-      font-size: 1.15rem;
-      padding: 14px 32px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px var(--shadow-color);
-      transition: background-color 0.3s ease;
-      display: none;
-      width: 100%;
-      max-width: 450px;
-    }
+  margin-top: 30px;
+  background: var(--primary);
+  color: #000;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px var(--shadow-color);
+  transition: all 0.3s ease;
+  display: none;
+  width: 100%;
+  max-width: 450px;
+}
 
-    button#retakeBtn:hover {
-      background: var(--primary-dark);
-    }
+body.dark-mode button#retakeBtn {
+  background: #ffffff;
+  color: #000;
+}
+
+button#retakeBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
 
     #resultMessage {
       margin-top: 25px;
@@ -381,13 +416,14 @@
     }
 
     #tipsSection {
-      margin-top: 30px;
-      background: #dff7f5;
-      border-left: 6px solid var(--primary);
-      border-radius: 10px;
-      padding: 20px 30px;
-      display: none;
-    }
+  margin-top: 30px;
+  background: var(--card-bg);
+  border-left: 6px solid var(--primary);
+  border-radius: 10px;
+  padding: 20px 30px;
+  display: none;
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
 
     #tipsSection h3 {
       margin-bottom: 14px;
@@ -401,13 +437,15 @@
     }
 
     .tips-link {
-      color: var(--primary-dark);
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: underline;
-      display: inline-block;
-      margin-top: 15px;
-    }
+  color: var(--primary-dark);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+body.dark-mode .tips-link {
+  color: #ffffff;
+}
 
     @media (max-width: 600px) {
       body {
@@ -461,8 +499,8 @@
       <a href="#">Logout</a>
     </div>
     <div class="contact-info">
-      <p>📞 <a href="tel:8296006453">+91 8296006453</a></p>
-      <p>✉ <a href="mailto:rakshithvrakshithv9@gmail.com">rakshithvrakshithv9@gmail.com</a></p>
+      <p>📞 <a href="tel:7483316729">+91 7483316729</a></p>
+      <p>✉ <a href="mailto:pragatikatiyar73@gmail.com">pragatikatiyar73@gmail.com</a></p>
     </div>
   </nav>
 
@@ -510,14 +548,24 @@
 
     menuBtn.onclick = () => sidebar.classList.add("open");
     closeBtn.onclick = () => sidebar.classList.remove("open");
-    window.onclick = e => {
-      if (e.target === sidebar) sidebar.classList.remove("open");
-    };
+    document.addEventListener("click", (e) => {
+  const isClickInsideSidebar = sidebar.contains(e.target);
+  const isMenuBtn = menuBtn.contains(e.target);
+
+  if (!isClickInsideSidebar && !isMenuBtn) {
+    sidebar.classList.remove("open");
+  }
+});
+
 
     // Dark mode toggle
-    document.getElementById("darkModeToggle").onclick = function () {
-      document.body.classList.toggle('dark-mode');
-    };
+    const darkToggle = document.getElementById("darkModeToggle");
+
+darkToggle.onclick = () => {
+  document.body.classList.toggle("dark-mode");
+  darkToggle.classList.toggle("rotate");
+};
+
 
     // Sidebar submenu toggle
     mentalHealthMenu.querySelector('a').onclick = function () {

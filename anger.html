@@ -8,23 +8,31 @@
   <title>Manasoothi - Understanding Anger</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300,400,600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg-color: #f0f8ff;
-      --text-color: #1d4044;
-      --primary: #4fd2c5;
-      --primary-dark: #38b2ac;
-      --card-bg: rgba(255 255 255 / 0.9);
-      --shadow-color: rgba(0 0 0 / 0.12);
-      --border-radius: 16px;
-      --transition: 0.3s ease;
-    }
+:root {
+  --bg-color: #f0f8ff;
+  --text-color: #1d4044;
+  --primary: #4f79d2;
+  --primary-dark: #18448a;
 
-    .dark-mode {
-      --bg-color: #1d4044;
-      --text-color: #eee;
-      --card-bg: rgba(45 78 82 / 0.9);
-      --shadow-color: rgba(0 0 0 / 0.4);
-    }
+  --card-bg: rgba(255, 255, 255, 0.55); /* transparent dialogs */
+  --header-bg: #ffffff; /* opaque header */
+
+  --shadow-color: rgba(0, 0, 0, 0.12);
+  --border-radius: 16px;
+  --transition: 0.3s ease;
+}
+
+
+.dark-mode {
+  --bg-color: #1d4044;
+  --text-color: #eee;
+
+  --card-bg: rgba(45, 78, 82, 0.6); /* transparent dialogs */
+  --header-bg: #1f3d40; /* opaque header */
+
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
 
     body {
       margin: 0;
@@ -50,19 +58,20 @@
       font-family: "Noto Sans Devanagari", serif;
     }
 
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: var(--card-bg);
-      box-shadow: 0 2px 10px var(--shadow-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 24px;
-      font-weight: 700;
-      z-index: 1000;
-    }
+ .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--header-bg); /* opaque */
+  box-shadow: 0 2px 10px var(--shadow-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  font-weight: 700;
+  z-index: 1000;
+}
+
 
     .navbar .logo {
       font-size: 1.5rem;
@@ -139,10 +148,17 @@
       transition: background-color var(--transition);
     }
 
-    .dropdown-content a:hover {
-      background-color: var(--primary);
-      color: white;
-    }
+    .dropdown-content {
+  background: var(--card-bg); /* transparent */
+  backdrop-filter: blur(12px);
+}
+@media (max-width: 720px) {
+  .nav-links {
+    background: var(--card-bg); /* transparent */
+    backdrop-filter: blur(14px);
+  }
+}
+
 
     .hamburger {
       display: none;
@@ -183,9 +199,10 @@
       border-radius: var(--border-radius);
       padding: 40px 48px;
       box-shadow: 0 25px 65px rgba(0, 0, 0, 0.15);
-      backdrop-filter: saturate(200%) blur(12px);
+      backdrop-filter: blur(14px) saturate(180%);
       color: var(--text-color);
       scroll-margin-top: 90px;
+
     }
 
     h1 {
