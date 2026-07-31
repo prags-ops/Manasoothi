@@ -1,0 +1,74 @@
+{
+  "entities": {
+    "users": {
+      "title": "Users",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "journal": {
+      "title": "Journal Entries",
+      "description": "Daily reflection and journal entries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "mood": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "date": { "type": "string" },
+        "sentiment": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "content"]
+    },
+    "moods": {
+      "title": "Mood Logs",
+      "description": "Daily logged moods and ratings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "mood": { "type": "string" },
+        "emoji": { "type": "string" },
+        "score": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "mood", "score"]
+    },
+    "meditations": {
+      "title": "Meditation Logs",
+      "description": "User meditation activity and mindfulness records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "minutes": { "type": "number" },
+        "sessionTitle": { "type": "string" },
+        "completedAt": { "type": "string" }
+      },
+      "required": ["userId", "minutes"]
+    },
+    "bookmarks": {
+      "title": "Bookmarked Resources",
+      "description": "User saved mental health resources",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "resourceId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "resourceId"]
+    }
+  }
+}

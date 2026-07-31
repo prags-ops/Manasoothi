@@ -1,0 +1,8 @@
+{
+  "name": "Manasoothi",
+  "description": "A comprehensive Mental Health and Wellbeing application designed to help users track their mood, practice mindfulness, and access mental health resources.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
